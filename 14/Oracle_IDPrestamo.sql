@@ -1,0 +1,7 @@
+CREATE OR REPLACE TRIGGER IDPrestamo
+ BEFORE INSERT ON prestamos
+ FOR EACH ROW
+BEGIN
+  SELECT MAX(id) + 1 INTO :new.id FROM prestamos;
+END;
+/
