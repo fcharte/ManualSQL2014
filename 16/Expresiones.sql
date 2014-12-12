@@ -1,0 +1,9 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+ Base INTEGER := 2;
+ Exponente INTEGER := 8;
+BEGIN
+ DBMS_OUTPUT.PUT_LINE(Base**Exponente);
+END;
+/

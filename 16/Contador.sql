@@ -1,0 +1,9 @@
+SET SERVEROUTPUT ON;
+
+BEGIN
+ FOR Numero IN 1..10 
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(Numero);
+  END LOOP;
+END;
+/
