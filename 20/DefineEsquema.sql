@@ -1,0 +1,44 @@
+DROP TABLE IF EXISTS Viaje;
+DROP TABLE IF EXISTS Trayecto;
+DROP TABLE IF EXISTS Nave;
+
+CREATE TABLE Trayecto (
+  ID		INTEGER(3),
+  Pais 		CHAR(3) NOT NULL,
+  LugarSalida	CHAR(10) NOT NULL,
+  LugarLlegada	CHAR(10) NOT NULL,
+  TiempoTrayecto	INTEGER(2) NOT NULL,
+  CONSTRAINT PK_Trayecto PRIMARY KEY(ID),
+  CONSTRAINT CHK_Pais CHECK(Pais IN ('USA','ESP','CHN'))
+);
+
+
+CREATE TABLE Nave (
+  Inscripcion		CHAR(3),
+  TipoNave	CHAR(10) NOT NULL,
+  Tripulantes	INTEGER(3),
+  UltimoViaje	DATE,
+  CONSTRAINT PK_Nave PRIMARY KEY(Inscripcion),
+  CONSTRAINT CHK_Tripulantes CHECK(Tripulantes BETWEEN 5 AND 300)
+);
+
+
+CREATE TABLE Viaje (
+  ID  INTEGER(3),
+  Inscripcion  CHAR(3),
+  Pasaje INTEGER(3),
+  CONSTRAINT FK_Nave FOREIGN KEY(Inscripcion) REFERENCES Nave(Inscripcion),
+  CONSTRAINT CHK_Pasaje CHECK(Pasaje<=300)
+);
+
+ALTER TABLE Viaje
+  ADD COLUMN Fecha DATE;
+
+ALTER TABLE Viaje
+  MODIFY COLUMN Fecha DATE NOT NULL;
+
+ALTER TABLE Viaje
+  ADD CONSTRAINT FK_Trayecto FOREIGN KEY(ID) REFERENCES Trayecto(ID);
+
+ALTER TABLE Viaje
+  ADD CONSTRAINT PK_Viaje PRIMARY KEY(ID,Inscripcion,fecha);
